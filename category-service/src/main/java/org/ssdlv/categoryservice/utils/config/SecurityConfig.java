@@ -7,11 +7,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.ssdlv.categoryservice.blacktoken.BlackTokenService;
 import org.ssdlv.categoryservice.utils.filters.JwtAuthorization;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final BlackTokenService blackTokenService;
+
+    public SecurityConfig(BlackTokenService blackTokenService) {
+        this.blackTokenService = blackTokenService;
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);
@@ -29,17 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().anyRequest().permitAll()
                 .and()
-                .addFilterAfter(new JwtAuthorization(), UsernamePasswordAuthenticationFilter.class);
-        /*//super.configure(http);
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.headers().frameOptions().disable();
-        http.authorizeRequests()
-                .antMatchers("/h2-console/**")
-                .permitAll();
-        http.authorizeRequests().anyRequest().permitAll();
-        //http.authorizeRequests().anyRequest().authenticated();
-        //http.addFilter(new JwtAuthorizationFilter());
-        http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);*/
+                .addFilterAfter(new JwtAuthorization(blackTokenService), UsernamePasswordAuthenticationFilter.class);
     }
 }

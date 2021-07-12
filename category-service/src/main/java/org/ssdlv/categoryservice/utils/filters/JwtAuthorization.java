@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.ssdlv.categoryservice.blacktoken.BlackTokenService;
 import org.ssdlv.categoryservice.utils.Constants;
 
 import javax.servlet.FilterChain;
@@ -21,6 +22,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class JwtAuthorization extends OncePerRequestFilter {
+    private final BlackTokenService blackTokenService;
+
+    public JwtAuthorization(BlackTokenService blackTokenService) {
+        this.blackTokenService = blackTokenService;
+    }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -36,8 +43,8 @@ public class JwtAuthorization extends OncePerRequestFilter {
                 accessToken = authorization.substring(7);
                 Algorithm algorithm = Algorithm.HMAC256(Constants.SECRET_KEY);
 
-                /*List<String> blackListTokens = blackTokenService.blackListTokens();
-                blackListTokens.forEach(System.err::println);*/
+                List<String> blackListTokens = blackTokenService.blackListTokens();
+                blackListTokens.forEach(System.err::println);
 
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(accessToken);

@@ -84,7 +84,7 @@ public class JobService {
         Job job = jobRepository.findById(id).orElseThrow(NotFound::new);
 
         job.setUser(userService.findUSerById(job.getUserId()));
-        //job.setCategory(categoryService.findCategoryById(job.getCategoryId()));
+        job.setCategory(categoryService.findCategoryById(job.getCategoryId()));
         return  job;
     }
 
