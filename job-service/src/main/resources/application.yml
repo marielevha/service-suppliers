@@ -1,0 +1,27 @@
+file:
+    upload-directoy: /home/ssdlv/Documents/ssdlv/service-suppliers/job-service/src/main/resources/box/
+server:
+    port: 9997
+spring:
+    application:
+        name: job-service
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        password: password
+        url: jdbc:mysql://localhost:3306/job-service?serverTimezone=UTC
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: create
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        show-sql: true
+    main:
+        allow-bean-definition-overriding: true
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 2KB
+            max-file-size: 500KB
+            max-request-size: 215MB
