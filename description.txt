@@ -1,0 +1,24 @@
+Dashboard : 
+	nombre de jobs
+	nombre de jobs traités
+	nombre de jobs non traités
+	nombre de jobs supprimés
+	nombre de jobs non publiés
+	
+	nombre de comptes clients
+	nombre de comptes prestataires
+	nombre de comptes actifs journalier ?
+	durree moyenne d'activité des utilisateurs
+	graphe des moyennes de connexions sur une période
+	
+	
+	ca totale générée
+	graphe du ca générée sur une période
+	
+	
+	graphe des jobs publiés sur une période
+	graphe des jobs traités sur une période
+	graphe des jobs non traités sur une période
+	
+	
+	

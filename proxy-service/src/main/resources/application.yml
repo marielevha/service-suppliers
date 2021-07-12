@@ -1,0 +1,10 @@
+spring:
+    application:
+        name: proxy-service
+    cloud:
+        gateway:
+            discovery:
+                locator:
+                    enabled: true
+server:
+    port: 9998
