@@ -28,7 +28,6 @@ public class JwtAuthorization extends OncePerRequestFilter {
         this.blackTokenService = blackTokenService;
     }
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader(Constants.AUTHORIZATION);
@@ -44,23 +43,27 @@ public class JwtAuthorization extends OncePerRequestFilter {
                 Algorithm algorithm = Algorithm.HMAC256(Constants.SECRET_KEY);
 
                 List<String> blackListTokens = blackTokenService.blackListTokens();
-                blackListTokens.forEach(System.err::println);
-
-                JWTVerifier jwtVerifier = JWT.require(algorithm).build();
-                DecodedJWT decodedJWT = jwtVerifier.verify(accessToken);
-
-                username  = decodedJWT.getSubject();
-                String[] token_authorities = decodedJWT.getClaim("authorities").asArray(String.class);
-                Collection<GrantedAuthority> authorities = new ArrayList<>();
-
-
-                for (String authority : token_authorities) {
-                    authorities.add(new SimpleGrantedAuthority(authority));
+                if (blackListTokens.contains(accessToken)) {
+                    response.setHeader("Token-Error-Message", Constants.MESSAGE_INVALID_ACCESS_TOKEN);
                 }
+                else {
+                    JWTVerifier jwtVerifier = JWT.require(algorithm).build();
+                    DecodedJWT decodedJWT = jwtVerifier.verify(accessToken);
 
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(username, null, authorities);
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                    username  = decodedJWT.getSubject();
+                    String[] token_authorities = decodedJWT.getClaim(Constants.CLAIM_AUTHORITIES).asArray(String.class);
+                    Collection<GrantedAuthority> authorities = new ArrayList<>();
+
+
+                    for (String authority : token_authorities) {
+                        authorities.add(new SimpleGrantedAuthority(authority));
+                    }
+
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                            new UsernamePasswordAuthenticationToken(username, null, authorities);
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+
+                }
                 filterChain.doFilter(request, response);
             }
             catch (Exception e) {
@@ -70,7 +73,7 @@ public class JwtAuthorization extends OncePerRequestFilter {
             }
         }
         else {
-            response.setHeader("Error", "The Token is required !!!");
+            response.setHeader("Error", Constants.MESSAGE_ACCESS_TOKEN_REQUIRED);
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
             filterChain.doFilter(request, response);
         }

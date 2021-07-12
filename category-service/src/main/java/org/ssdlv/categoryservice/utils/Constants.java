@@ -10,6 +10,10 @@ public class Constants {
     public static String AUTHORIZATION = "authorization";
     public static String BEARER = "Bearer ";
     public static String PATH_REFRESH_TOKEN = "/refreshToken";
+    public static final String CLAIM_AUTHORITIES = "authorities";
+
+    public static final String MESSAGE_ACCESS_TOKEN_REQUIRED = "Access Token Required.";
+    public static final String MESSAGE_INVALID_ACCESS_TOKEN = "Your token is not valid";
 
     public static final String[] AUTH_WHITELIST = {
             PATH_REFRESH_TOKEN

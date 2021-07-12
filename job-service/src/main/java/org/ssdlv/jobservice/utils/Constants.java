@@ -13,8 +13,11 @@ public class Constants {
     public static String PUBLISH_KEY = "publish";
     public static String PUBLISH_NOT_KEY = "not-publish";
     public static String DELETED_KEY = "deleted";
-
     public static String DEFAULT_ORDER_COLUMN = "publishedAt";
+    public static final String CLAIM_AUTHORITIES = "authorities";
+
+    public static final String MESSAGE_ACCESS_TOKEN_REQUIRED = "Access Token Required.";
+    public static final String MESSAGE_INVALID_ACCESS_TOKEN = "Your token is not valid";
 
     public static final String[] AUTH_WHITELIST = {
             "/login",
