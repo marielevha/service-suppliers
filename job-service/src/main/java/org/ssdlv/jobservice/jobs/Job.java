@@ -32,7 +32,7 @@ public class Job {
     @Column(nullable = false, columnDefinition = "text")
     private String title;
     @NotBlank(message = "Description is required")
-    @Column(nullable = false, columnDefinition = "longtext")
+    @Column(nullable = false, columnDefinition = "text")
     private String description;
     @Column(nullable = false)
     private String slug;

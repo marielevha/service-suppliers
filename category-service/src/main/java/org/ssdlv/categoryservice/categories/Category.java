@@ -24,6 +24,7 @@ public class Category {
     @NotBlank(message = "Title is required")
     @Column(nullable = false)
     private String title;
+    @Column(columnDefinition = "text")
     private String description;
     @Column(nullable = false)
     private String slug;

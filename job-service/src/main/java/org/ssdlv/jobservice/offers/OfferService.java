@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.ssdlv.jobservice.jobs.JobRepository;
 import org.ssdlv.jobservice.users.UserService;
 import org.ssdlv.jobservice.utils.SlugifyUtil;
+import org.ssdlv.jobservice.utils.State;
 
 import java.util.Date;
 import java.util.Optional;
@@ -47,7 +48,14 @@ public class OfferService {
 
     public Offer accept(Long id) throws NotFound {
         Offer offer = offerRepository.findById(id).orElseThrow(NotFound::new);
+        //offer.setState(State.ACCEPTED);
         offer.setActivatedAt(new Date());
+        return offerRepository.save(offer);
+    }
+
+    public Offer refused(Long id) throws NotFound {
+        Offer offer = offerRepository.findById(id).orElseThrow(NotFound::new);
+        //offer.setState(State.REFUSED);
         return offerRepository.save(offer);
     }
 

@@ -22,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +55,7 @@ public class User {
     private Date updatedAt;
     private Date deletedAt;
     @OneToMany(mappedBy = "user")
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<UserPermission> permissions;
 

@@ -3,17 +3,41 @@ server:
 spring:
     application:
         name: user-service
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        password: password
-        url: jdbc:mysql://localhost:3306/user-service?serverTimezone=UTC
-        username: root
+    main:
+        allow-bean-definition-overriding: true
     jpa:
         hibernate:
             ddl-auto: create
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         show-sql: true
-    main:
-        allow-bean-definition-overriding: true
+#        properties:
+#            hibernate:
+#                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    datasource:
+        username: juxmxpkghliggw
+        password: 4114bf7a422f5c5581f0ea98520242d4f0c4d211213c8f65c729910f88a1e98e
+        url: jdbc:postgresql://ec2-34-193-101-0.compute-1.amazonaws.com:5432/d5v4nftv6seort
+#        username: root
+#        password: password
+#        url: jdbc:mysql://localhost:3306/user-service?serverTimezone=UTC
+eureka:
+    client:
+        service-url:
+            defaultZone: https://sp-euraka-service.herokuapp.com/eureka/
+feign:
+    client:
+        config:
+            default:
+                connectTimeout: 160000000
+                readTimeout: 160000000
+ribbon:
+    ReadTimeout: 100000
+    ConnectTimeout: 100000
+    MaxAutoRetries: 3
+
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 100000

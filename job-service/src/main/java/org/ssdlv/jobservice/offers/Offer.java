@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.ssdlv.jobservice.jobs.Job;
 import org.ssdlv.jobservice.utils.SlugifyUtil;
+import org.ssdlv.jobservice.utils.State;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -25,9 +26,11 @@ public class Offer {
     @Column(nullable = false)
     private String title;
     @NotBlank(message = "Description is required")
-    @Column(nullable = false, columnDefinition = "longtext")
+    @Column(nullable = false, columnDefinition = "text")
     private String description;
     private double price;
+    /*@Enumerated(EnumType.STRING)
+    private State state;*/
     @Column(nullable = false)
     private String slug;
     private Date createdAt;

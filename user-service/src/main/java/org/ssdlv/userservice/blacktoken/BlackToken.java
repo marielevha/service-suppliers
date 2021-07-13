@@ -18,7 +18,7 @@ public class BlackToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(columnDefinition = "longtext")
+    @Column(columnDefinition = "text")
     private String token;
     private Date createdAt;
 

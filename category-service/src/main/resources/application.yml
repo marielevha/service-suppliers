@@ -4,16 +4,34 @@ spring:
     application:
         name: category-service
     datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        password: password
-        url: jdbc:mysql://localhost:3306/category-service?serverTimezone=UTC
-        username: root
+        password: 13d6128fc553eb4a58ed1ff4589c0c8a9b555155016dda12058133870a5ef41c
+        url: jdbc:postgresql://ec2-35-168-145-180.compute-1.amazonaws.com:5432/d7a26ntk0uu14u
+        username: uqrqcifzdqwcqi
     jpa:
         hibernate:
             ddl-auto: create
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         show-sql: true
     main:
         allow-bean-definition-overriding: true
+eureka:
+    client:
+        service-url:
+            defaultZone: https://sp-euraka-service.herokuapp.com/eureka/
+feign:
+    client:
+        config:
+            default:
+                connectTimeout: 160000000
+                readTimeout: 160000000
+ribbon:
+    ReadTimeout: 100000
+    ConnectTimeout: 100000
+    MaxAutoRetries: 3
+
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 100000

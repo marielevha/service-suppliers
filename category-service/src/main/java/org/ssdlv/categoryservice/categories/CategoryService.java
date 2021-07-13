@@ -15,9 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+    private final JobService jobService;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, JobService jobService) {
         this.categoryRepository = categoryRepository;
+        this.jobService = jobService;
     }
 
     public Category create(Category category) {
@@ -57,9 +59,9 @@ public class CategoryService {
                         .stream()
                         .filter(category -> (category.isActivated() && category.getDeletedAt() == null))
                         .collect(Collectors.toList());
-                /*categories.forEach(category -> {
+                categories.forEach(category -> {
                     category.setTotalJobs(jobService.count_jobs_by_category(category.getId()));
-                });*/
+                });
                 break;
             case "not-activated":
                 categories = categories
