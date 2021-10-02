@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface UserPermissionRepository extends JpaRepository<UserPermission, Long> {
     List<UserPermission> findByUser(User user);
+    UserPermission findByUserIdAndPermissionId(Long userId, Long permissionId);
 }

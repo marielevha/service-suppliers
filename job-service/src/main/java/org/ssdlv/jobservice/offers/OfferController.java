@@ -1,6 +1,8 @@
 package org.ssdlv.jobservice.offers;
 
 import org.omg.CosNaming.NamingContextPackage.NotFound;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,7 @@ import javax.validation.Valid;
 @CrossOrigin("*")
 @RestController
 public class OfferController {
+    Logger logger = LoggerFactory.getLogger(OfferController.class);
     private final OfferService offerService;
     private final OfferRepository offerRepository;
 
@@ -44,6 +47,7 @@ public class OfferController {
                     .body(offerRepository.findAll(pageable));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -59,6 +63,7 @@ public class OfferController {
             return ResponseEntity.status(HttpStatus.OK).body(offer);
         }
         catch (NotFound found) {
+            logger.debug("Offer: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
@@ -67,6 +72,7 @@ public class OfferController {
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -74,11 +80,13 @@ public class OfferController {
     @PostMapping("/offers")
     @PreAuthorize("hasAnyAuthority('OFFER:CREATE')")
     public ResponseEntity<Offer> create(@Valid @RequestBody Offer offer) {
+        System.err.println(offer.toString());
         try {
             offer = offerService.create(offer);
             return ResponseEntity.status(HttpStatus.CREATED).body(offer);
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -86,24 +94,26 @@ public class OfferController {
     @PutMapping("/offers/{id}")
     @PreAuthorize("hasAnyAuthority('OFFER:UPDATE')")
     public ResponseEntity<?> update(
-            @Valid @RequestBody Offer offer,
-            @PathVariable(name = "id") Long id,
-            HttpServletRequest request
+        @Valid @RequestBody Offer offer,
+        @PathVariable(name = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             offer = offerService.update(offer, id);
             return ResponseEntity.status(HttpStatus.CREATED).body(offer);
         }
         catch (NotFound found) {
+            logger.debug("Offer: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
-                            "Offer {"+id+"} is not found !",
-                            request.getRequestURI()
+                        "Offer {"+id+"} is not found !",
+                        request.getRequestURI()
                     ));
         }
         catch (Exception e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
+            //System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -111,17 +121,19 @@ public class OfferController {
     @DeleteMapping("/offers/{id}")
     @PreAuthorize("hasAnyAuthority('OFFER:DELETE')")
     public ResponseEntity<?> delete(
-            @PathVariable(name = "id") Long id,
-            HttpServletRequest request
+        @PathVariable(name = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             Boolean deleted = offerService.delete(id);
             if (deleted) {
                 return ResponseEntity.status(HttpStatus.OK).body("Offer Is Deleted");
             }
+            logger.debug("Offer: {} is not found.", id);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         catch (NotFound found) {
+            logger.debug("Offer: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
@@ -130,29 +142,32 @@ public class OfferController {
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PostMapping("/offers/{id}/accept")
-    @PreAuthorize("hasAnyAuthority('JOB:CREATE')")
+    @PreAuthorize("hasAnyAuthority('OFFER:CREATE')")
     public ResponseEntity<?> accept(
-            @PathVariable(name = "id") Long id,
-            HttpServletRequest request
+        @PathVariable(name = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             Offer offer = offerService.accept(id);
             return ResponseEntity.status(HttpStatus.CREATED).body(offer);
         }
         catch (NotFound found) {
+            logger.debug("Offer: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
-                            "Offer {"+id+"} is not found !",
-                            request.getRequestURI()
+                        "Offer {"+id+"} is not found !",
+                        request.getRequestURI()
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

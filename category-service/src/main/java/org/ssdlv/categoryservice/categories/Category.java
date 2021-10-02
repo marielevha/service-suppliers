@@ -33,7 +33,7 @@ public class Category {
     private Date updatedAt;
     private Date deletedAt;
     @OneToMany(mappedBy = "category")
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Collection<Tag> tags;
     @Transient
     private int totalJobs;

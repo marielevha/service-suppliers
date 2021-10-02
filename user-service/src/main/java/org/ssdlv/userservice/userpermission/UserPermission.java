@@ -18,8 +18,6 @@ public class UserPermission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private Date createdAt = new Date();
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
@@ -27,6 +25,9 @@ public class UserPermission {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Permission permission;
+    @Column(nullable = false)
+    private Date createdAt;
+    private Date deletedAt;
 
     public UserPermission(User user, Permission permission) {
         this.user = user;

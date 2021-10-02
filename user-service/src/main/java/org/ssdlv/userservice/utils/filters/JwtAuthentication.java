@@ -1,17 +1,12 @@
 package org.ssdlv.userservice.utils.filters;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 import lombok.SneakyThrows;
-import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.ssdlv.userservice.users.UserController;
 import org.ssdlv.userservice.users.UserRepository;
 
 import com.google.gson.Gson;
@@ -31,11 +26,11 @@ import java.util.*;
 
 public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public JwtAuthentication(AuthenticationManager authenticationManager) {
+    public JwtAuthentication(AuthenticationManager authenticationManager, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
     }
 
     @SneakyThrows
@@ -62,11 +57,16 @@ public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
             authorities.add(grantedAuthority.getAuthority());
         });
 
+        org.ssdlv.userservice.users.User localUser = userRepository.findByEmail(user.getUsername());
+
         Algorithm algorithm = Algorithm.HMAC256(Constants.SECRET_KEY);
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(Constants.ACCESS_TOKEN_EXPIRATION)
                 .withIssuer(request.getRequestURL().toString())
+                .withClaim("id", localUser.getId())
+                .withClaim("slug", localUser.getSlug())
+                .withClaim("name", localUser.getFirstName() + " " + localUser.getLastName())
                 .withClaim(Constants.CLAIM_AUTHORITIES, authorities)
                 .sign(algorithm);
 
@@ -74,8 +74,9 @@ public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
                 .withSubject(user.getUsername())
                 .withExpiresAt(Constants.REFRESH_TOKEN_EXPIRATION)
                 .withIssuer(request.getRequestURL().toString())
+                .withClaim("id", localUser.getId())
                 .sign(algorithm);
 
-        UserUtil.sendTokenResponse(response, accessToken, refreshToken);
+        UserUtil.sendTokenResponse(response, accessToken, refreshToken, localUser);
     }
 }

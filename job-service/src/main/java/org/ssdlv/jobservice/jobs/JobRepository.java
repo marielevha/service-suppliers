@@ -8,9 +8,11 @@ import org.springframework.hateoas.PagedModel;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface JobRepository extends JpaRepository<Job, Long> {
+    Optional<Job> findFirstBySlug(String slug);
     Page<Job> findAllByPublishedAtIsNull(Pageable pageable);
     Page<Job> findAllByPublishedAtIsNotNull(Pageable pageable);
 

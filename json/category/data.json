@@ -1,0 +1,84 @@
+{
+    "content": [
+        {
+            "id": 1,
+            "title": "Category Title One",
+            "description": "Category Description One",
+            "slug": "category-title-one",
+            "activated": true,
+            "createdAt": "2021-07-19T11:36:04.356+00:00",
+            "updatedAt": "2021-07-19T11:36:04.356+00:00",
+            "deletedAt": null,
+            "totalJobs": 2
+        },
+        {
+            "id": 2,
+            "title": "Category Title Two",
+            "description": "Category Description Two",
+            "slug": "category-title-two",
+            "activated": true,
+            "createdAt": "2021-07-19T11:36:04.463+00:00",
+            "updatedAt": "2021-07-19T11:36:04.463+00:00",
+            "deletedAt": null,
+            "totalJobs": 2
+        },
+        {
+            "id": 3,
+            "title": "Category Title Three",
+            "description": "Category Description Three",
+            "slug": "category-title-three",
+            "activated": true,
+            "createdAt": "2021-07-19T11:36:04.469+00:00",
+            "updatedAt": "2021-07-19T11:36:04.469+00:00",
+            "deletedAt": null,
+            "totalJobs": 1
+        },
+        {
+            "id": 4,
+            "title": "Category Title Four",
+            "description": "Category Description Four",
+            "slug": "category-title-four",
+            "activated": true,
+            "createdAt": "2021-07-19T11:36:04.476+00:00",
+            "updatedAt": "2021-07-19T11:36:04.476+00:00",
+            "deletedAt": null,
+            "totalJobs": 0
+        },
+        {
+            "id": 5,
+            "title": "Category Title Five",
+            "description": "Category Description Five",
+            "slug": "category-title-five",
+            "activated": true,
+            "createdAt": "2021-07-19T11:36:04.483+00:00",
+            "updatedAt": "2021-07-19T11:36:04.483+00:00",
+            "deletedAt": null,
+            "totalJobs": 0
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "unsorted": false,
+            "sorted": true,
+            "empty": false
+        },
+        "pageNumber": 0,
+        "pageSize": 15,
+        "offset": 0,
+        "unpaged": false,
+        "paged": true
+    },
+    "last": true,
+    "totalPages": 1,
+    "totalElements": 5,
+    "first": true,
+    "size": 15,
+    "number": 0,
+    "sort": {
+        "unsorted": false,
+        "sorted": true,
+        "empty": false
+    },
+    "numberOfElements": 5,
+    "empty": false
+}

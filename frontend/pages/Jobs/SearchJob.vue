@@ -158,7 +158,7 @@
                     <div class="_list_right-info">
                       <ul>
                         <li>
-                          <NuxtLink :to="{name: 'Jobs-DetailsJob', params: {job: job}}" class="_jb_apply theme-bt">View Job</NuxtLink>
+                          <NuxtLink :to="{name: 'job_details', params: {slug: job.slug}}" class="_jb_apply theme-bt">View Job</NuxtLink>
                         </li>
                       </ul>
                     </div>

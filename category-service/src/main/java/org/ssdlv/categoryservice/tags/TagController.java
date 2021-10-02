@@ -1,6 +1,8 @@
 package org.ssdlv.categoryservice.tags;
 
 import org.omg.CosNaming.NamingContextPackage.NotFound;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,7 @@ import javax.validation.Valid;
 //@RequestMapping("/api/v1/")
 @RestController
 public class TagController {
+    Logger logger = LoggerFactory.getLogger(TagController.class);
     private final TagService tagService;
     private final TagRepository tagRepository;
 
@@ -33,9 +36,9 @@ public class TagController {
     @GetMapping(value = "/tags", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAnyAuthority('TAG:READ')")
     public Page<Tag> all(
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "12") int size,
-            @RequestParam(name = "column", defaultValue = "createdAt") String column
+        @RequestParam(name = "page", defaultValue = "0") int page,
+        @RequestParam(name = "size", defaultValue = "12") int size,
+        @RequestParam(name = "column", defaultValue = "createdAt") String column
     ) {
         Sort sort = Sort.by(column).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -45,14 +48,15 @@ public class TagController {
     @GetMapping(value = "/tags/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAnyAuthority('TAG:READ')")
     public ResponseEntity<?> find(
-            @PathVariable(value = "id") Long id,
-            HttpServletRequest request
+        @PathVariable(value = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             Tag tag = tagService.find(id);
             return ResponseEntity.status(HttpStatus.OK).body(tag);
         }
         catch (NotFound found) {
+            logger.debug("Tag: {} is found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
@@ -61,6 +65,7 @@ public class TagController {
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -73,6 +78,7 @@ public class TagController {
             return ResponseEntity.status(HttpStatus.CREATED).body(tag);
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -81,14 +87,15 @@ public class TagController {
     @PreAuthorize("hasAnyAuthority('TAG:UPDATE')")
     public ResponseEntity<?> update(
             @Valid @RequestBody Tag tag,
-            @PathVariable(name = "id") Long id,
-            HttpServletRequest request
+        @PathVariable(name = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             tag = tagService.update(tag, id);
             return ResponseEntity.status(HttpStatus.CREATED).body(tag);
         }
         catch (NotFound found) {
+            logger.debug("Tag: {} is found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
@@ -97,6 +104,7 @@ public class TagController {
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -104,17 +112,19 @@ public class TagController {
     @DeleteMapping("/tags/{id}")
     @PreAuthorize("hasAnyAuthority('TAG:DELETE')")
     public ResponseEntity<?> delete(
-            @PathVariable(value = "id") Long id,
-            HttpServletRequest request
+        @PathVariable(value = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             Boolean deleted = tagService.delete(id);
             if (deleted) {
                 return ResponseEntity.status(HttpStatus.OK).body("Tag Deleted");
             }
+            logger.debug("Tag: {} is found.", id);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         catch (NotFound found) {
+            logger.debug("Tag: {} is found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
@@ -123,6 +133,7 @@ public class TagController {
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

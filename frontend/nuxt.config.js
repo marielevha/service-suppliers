@@ -37,7 +37,12 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/others-vue-modules.js'
+    //'@/plugins/others-vue-modules'
+    //{ src: '~/plugins/others-vue-modules.js', mode: 'server' }
   ],
+
+  mode: 'spa',
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -74,5 +79,16 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    //transpile: ['vue-currency-input']
+  },
+
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'job_details',
+        path: '/Jobs/DetailsJob/:slug',
+        component: resolve(__dirname, 'pages/Jobs/DetailsJob.vue')
+      })
+    }
   }
 }

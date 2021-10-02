@@ -35,7 +35,7 @@ public class JobService {
     }
 
     public Job create(Job job) {
-        User user = userService.findUSerById(job.getUserId());
+        User user = userService.findUserById(job.getUserId());
         Category category = categoryService.findCategoryById(job.getCategoryId());
 
         job.setUserId(user.getId());
@@ -83,7 +83,15 @@ public class JobService {
     public Job findById(Long id) throws NotFound {
         Job job = jobRepository.findById(id).orElseThrow(NotFound::new);
 
-        job.setUser(userService.findUSerById(job.getUserId()));
+        job.setUser(userService.findUserById(job.getUserId()));
+        job.setCategory(categoryService.findCategoryById(job.getCategoryId()));
+        return  job;
+    }
+
+    public Job findBySlug(String slug) throws NotFound {
+        Job job = jobRepository.findFirstBySlug(slug).orElseThrow(NotFound::new);
+
+        job.setUser(userService.findUserById(job.getUserId()));
         job.setCategory(categoryService.findCategoryById(job.getCategoryId()));
         return  job;
     }
@@ -101,7 +109,7 @@ public class JobService {
         }
 
         jobs.forEach(job -> {
-            job.setUser(userService.findUSerById(job.getUserId()));
+            job.setUser(userService.findUserById(job.getUserId()));
             job.setCategory(categoryService.findCategoryById(job.getCategoryId()));
         });
         return jobs;
@@ -220,7 +228,7 @@ public class JobService {
         jobs.forEach(job -> {
             //System.err.println(userService.findUSerById(job.getUserId()));
             //System.err.println(categoryService.findCategoryById(job.getCategoryId()));
-            job.setUser(userService.findUSerById(job.getUserId()));
+            job.setUser(userService.findUserById(job.getUserId()));
             job.setCategory(categoryService.findCategoryById(job.getCategoryId()));
         });
 
@@ -246,9 +254,6 @@ public class JobService {
         jobs.forEach(job -> {
             job.setTotalOffers(job.getOffers().size());
             job.setTagsSlug(generateTagSlug(job.getTags()));
-            /*job.getTags().forEach(tag -> {
-                job.getTagsSlug().add(SlugifyUtil.getInstance().slugify(tag.getText()));
-            });*/
         });
 
         //Filter jobs contains {string}
@@ -326,10 +331,8 @@ public class JobService {
                     .collect(Collectors.toList());
         }
 
-        jobs.forEach(job -> {
-            job.setUser(userService.findUSerById(job.getUserId()));
-            job.setCategory(categoryService.findCategoryById(job.getCategoryId()));
-        });
+        System.err.println("TOUT PASS");
+        jobs = findCategoriesAndUsersForJobs(jobs);
 
         return jobs;
     }
@@ -432,6 +435,17 @@ public class JobService {
             tagsSlug.add(SlugifyUtil.getInstance().slugify(tag.getText()));
         });
         return tagsSlug;
+    }
+
+    private List<Job> findCategoriesAndUsersForJobs(List<Job> jobs) {
+        jobs.forEach(job -> {
+            User user = userService.findUserById(job.getUserId());
+            Category category = categoryService.findCategoryById(job.getCategoryId());
+
+            job.setUser(user);
+            job.setCategory(category);
+        });
+        return jobs;
     }
 
 }

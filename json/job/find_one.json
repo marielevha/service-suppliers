@@ -1,0 +1,108 @@
+{
+  "id": 1,
+  "title": "Job One",
+  "description": "Toffee cookie macaroon. Cake I love carrot cake candy canes I love dragée chocolate cake jelly. Muffin wafer gummies chocolate bar I love donut powder. Liquorice fruitcake lemon drops. Cupcake topping wafer gingerbread ice cream chocolate wafer sugar plum. Icing jujubes pie bonbon fruitcake bear claw icing. Cake sweet roll tiramisu. Tiramisu I love caramels.",
+  "slug": "job-one",
+  "createdAt": "2021-07-12T10:27:44.000+00:00",
+  "updatedAt": "2021-07-12T10:27:44.000+00:00",
+  "publishedAt": "2021-07-12",
+  "deletedAt": null,
+  "latitude": 27.174835,
+  "longitude": 78.040753,
+  "categoryId": 1,
+  "userId": 1,
+  "tags": [
+    {
+      "id": 1,
+      "text": "Bricolage",
+      "createdAt": "2021-07-12T10:27:45.000+00:00",
+      "updatedAt": "2021-07-12T10:27:45.000+00:00",
+      "deletedAt": null
+    },
+    {
+      "id": 2,
+      "text": "House",
+      "createdAt": "2021-07-12T10:27:45.000+00:00",
+      "updatedAt": "2021-07-12T10:27:45.000+00:00",
+      "deletedAt": null
+    },
+    {
+      "id": 3,
+      "text": "Baby Siting",
+      "createdAt": "2021-07-12T10:27:45.000+00:00",
+      "updatedAt": "2021-07-12T10:27:45.000+00:00",
+      "deletedAt": null
+    },
+    {
+      "id": 4,
+      "text": "Reparation",
+      "createdAt": "2021-07-12T10:27:45.000+00:00",
+      "updatedAt": "2021-07-12T10:27:45.000+00:00",
+      "deletedAt": null
+    },
+    {
+      "id": 5,
+      "text": "Gardener",
+      "createdAt": "2021-07-12T10:27:45.000+00:00",
+      "updatedAt": "2021-07-12T10:27:45.000+00:00",
+      "deletedAt": null
+    }
+  ],
+  "tagsSlug": null,
+  "user": {
+    "id": 1,
+    "firstName": "Carols",
+    "lastName": "DENVER",
+    "phone": "000000000",
+    "email": "denver@ssdlv.com",
+    "password": null,
+    "avatar": null,
+    "slug": "carols-denver",
+    "address": null,
+    "createdAt": "2021-07-12T10:22:10.000+00:00",
+    "updatedAt": "2021-07-12T10:22:10.000+00:00",
+    "deletedAt": null
+  },
+  "category": {
+    "id": 1,
+    "title": "Category One",
+    "description": "Description One",
+    "slug": "job-one",
+    "createdAt": "2021-07-12T10:27:44.000+00:00",
+    "updatedAt": "2021-07-12T10:27:44.000+00:00",
+    "publishedAt": "2021-07-12",
+    "deletedAt": null
+  },
+  "offers": [
+    {
+      "id": 1,
+      "title": "Offer One",
+      "description": "Description Offer One",
+      "price": 100.0,
+      "slug": "offer-one",
+      "createdAt": "2021-07-12T10:27:45.000+00:00",
+      "updatedAt": "2021-07-12T10:27:45.000+00:00",
+      "activatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "id": 2,
+      "title": "Offer Two",
+      "description": "Description Offer Two",
+      "price": 125.0,
+      "slug": "offer-two",
+      "createdAt": "2021-07-12T10:27:45.000+00:00",
+      "updatedAt": "2021-07-12T10:27:45.000+00:00",
+      "activatedAt": null,
+      "deletedAt": null
+    }
+  ],
+  "city": {
+    "id": 1,
+    "name": "Casablanca",
+    "createdAt": "2021-07-12T10:27:44.000+00:00",
+    "updatedAt": "2021-07-12T10:27:44.000+00:00",
+    "deletedAt": null
+  },
+  "totalOffers": 2
+}

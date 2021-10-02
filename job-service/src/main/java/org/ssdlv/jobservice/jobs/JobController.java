@@ -1,6 +1,8 @@
 package org.ssdlv.jobservice.jobs;
 
 import org.omg.CosNaming.NamingContextPackage.NotFound;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 public class JobController {
+    Logger logger = LoggerFactory.getLogger(JobController.class);
     private final JobService jobService;
     private final TagService tagService;
 
@@ -38,8 +41,8 @@ public class JobController {
     @GetMapping("/jobs/{id}")
     @PreAuthorize("hasAnyAuthority('JOB:READ')")
     public ResponseEntity<?> find(
-            @PathVariable(name = "id") Long id,
-            HttpServletRequest request
+        @PathVariable(name = "id") Long id,
+        HttpServletRequest request
     ) {
         /*Job job = jobService.findById(id);
         EntityModel<Job> resource = EntityModel.of(job);
@@ -55,6 +58,7 @@ public class JobController {
             return ResponseEntity.status(HttpStatus.OK).body(job);
         }
         catch (NotFound found) {
+            logger.debug("Job: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
@@ -63,6 +67,32 @@ public class JobController {
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @GetMapping("/jobs/{slug}/one")
+    @PreAuthorize("hasAnyAuthority('JOB:READ')")
+    public ResponseEntity<?> find(
+        @PathVariable(name = "slug") String slug,
+        HttpServletRequest request
+    ) {
+        try {
+            Job job = jobService.findBySlug(slug);
+            return ResponseEntity.status(HttpStatus.OK).body(job);
+        }
+        catch (NotFound found) {
+            logger.debug("Job: {} is not found.", slug);
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.not_found_error(
+                            "Job {"+slug+"} is not found !",
+                            request.getRequestURI()
+                    ));
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -76,7 +106,8 @@ public class JobController {
             return ResponseEntity.status(HttpStatus.CREATED).body(job);
         }
         catch (Exception e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
+            //System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -84,15 +115,16 @@ public class JobController {
     @PutMapping("/jobs/{id}")
     @PreAuthorize("hasAnyAuthority('JOB:UPDATE')")
     public ResponseEntity<?> update(
-            @Valid @RequestBody Job job,
-            @PathVariable(name = "id") Long id,
-            HttpServletRequest request
+        @Valid @RequestBody Job job,
+        @PathVariable(name = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             job = jobService.update(job, id);
             return ResponseEntity.status(HttpStatus.CREATED).body(job);
         }
         catch (NotFound found) {
+            logger.debug("Job: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
@@ -101,7 +133,8 @@ public class JobController {
                     ));
         }
         catch (Exception e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
+            //System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -109,14 +142,15 @@ public class JobController {
     @PostMapping("/jobs/{id}/publish")
     @PreAuthorize("hasAnyAuthority('JOB:CREATE')")
     public ResponseEntity<?> publish(
-            @PathVariable(name = "id") Long id,
-            HttpServletRequest request
+        @PathVariable(name = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             Job job = jobService.publish(id);
             return ResponseEntity.status(HttpStatus.CREATED).body(job);
         }
         catch (NotFound found) {
+            logger.debug("Job: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
@@ -125,7 +159,8 @@ public class JobController {
                     ));
         }
         catch (Exception e) {
-            System.err.println(e.getMessage());
+            logger.error(e.getMessage());
+            //System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -133,22 +168,24 @@ public class JobController {
     @PostMapping("/jobs/{id}/unpublish")
     @PreAuthorize("hasAnyAuthority('JOB:CREATE')")
     public ResponseEntity<?> unPublish(
-            @PathVariable(name = "id") Long id,
-            HttpServletRequest request
+        @PathVariable(name = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             Job job = jobService.unPublish(id);
             return ResponseEntity.status(HttpStatus.CREATED).body(job);
         }
         catch (NotFound found) {
+            logger.debug("Job: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
-                            "Job {"+id+"} is not found !",
-                            request.getRequestURI()
+                        "Job {"+id+"} is not found !",
+                        request.getRequestURI()
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -156,34 +193,37 @@ public class JobController {
     @DeleteMapping("/jobs/{id}")
     @PreAuthorize("hasAnyAuthority('JOB:DELETE')")
     public ResponseEntity<?> delete(
-            @PathVariable(name = "id") Long id,
-            HttpServletRequest request
+        @PathVariable(name = "id") Long id,
+        HttpServletRequest request
     ) {
         try {
             Boolean deleted = jobService.delete(id);
             if (deleted) {
                 return ResponseEntity.status(HttpStatus.OK).body("Job Is Deleted");
             }
+            logger.debug("Job: {} is not found.", id);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         catch (NotFound found) {
+            logger.debug("Job: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
-                            "Job {"+id+"} is not found !",
-                            request.getRequestURI()
+                        "Job {"+id+"} is not found !",
+                        request.getRequestURI()
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @GetMapping("/jobs/{id}/offers")
     public ResponseEntity<?> offers_by_job(
-            @PathVariable(name = "id") Long id,
-            @RequestParam(name = "status", defaultValue = "not-deleted") String status,
-            HttpServletRequest request
+        @PathVariable(name = "id") Long id,
+        @RequestParam(name = "status", defaultValue = "not-deleted") String status,
+        HttpServletRequest request
     ) {
 
         try {
@@ -192,6 +232,7 @@ public class JobController {
                     .body(jobService.offers(id, status));
         }
         catch (NotFound notFound) {
+            logger.debug("Job: {} is not found.", id);
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.not_found_error(
@@ -200,6 +241,7 @@ public class JobController {
                     ));
         }
         catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         //Job job = jobRepository.findById(id).get();
@@ -252,43 +294,44 @@ public class JobController {
 
     @PostMapping("/jobs_data")
     public ResponseEntity<?> data(@RequestBody JobFilterRequest filter) {
+        try {
+            Pageable pageable;
+            if (filter.getSize() != 0) {
+                pageable = PageRequest.of(filter.getPage(), filter.getSize());
+            } else {
+                pageable = PageRequest.of(filter.getPage(), 10);
+            }
+            System.err.println(filter.toString());
+            List<Job> jobs = jobService.find_and_filter_data(filter);
+            //jobService.paginate(jobs, pageable);
+            //jobService.data(jobs, filter, pageable);
 
-        /*String column = Constants.DEFAULT_ORDER_COLUMN;
-        if (filter.getColumn() != null) column = filter.getColumn();
-
-        Sort sort = Sort.by(column).descending();
-        if (filter.isAscending()) {
-            sort = Sort.by(filter.getColumn()).ascending();
-        }*/
-
-        Pageable pageable;
-        if (filter.getSize() != 0) {
-           pageable  = PageRequest.of(filter.getPage(), filter.getSize());
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(jobService.paginate_job(jobs, pageable)/*jobService.data(filter, pageable)*/);
+            //.body(jobService.data(filter, pageable));
         }
-        else {
-            pageable  = PageRequest.of(filter.getPage(), 10);
+        catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .build();
         }
-
-        /*System.err.println(filter.toString());
-        System.err.println(pageable.getPageSize());
-        System.err.println(pageable.getPageNumber());*/
-
-        List<Job> jobs = jobService.find_and_filter_data(filter);
-        //jobService.paginate(jobs, pageable);
-        //jobService.data(jobs, filter, pageable);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(jobService.paginate_job(jobs, pageable)/*jobService.data(filter, pageable)*/);
-                //.body(jobService.data(filter, pageable));
-
     }
 
     @GetMapping("/jobs/{category}/count")
     public ResponseEntity<?> count_jobs_by_category(@PathVariable(name = "category") Long category) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(jobService.count_jobs_by_category(category));
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(jobService.count_jobs_by_category(category));
+        }
+        catch(Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .build();
+        }
     }
     /*@GetMapping("/jobs")
     @PreAuthorize("hasAnyAuthority('JOB:READ')")

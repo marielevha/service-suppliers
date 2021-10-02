@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient("USER-SERVICE")
 public interface UserService {
     @GetMapping("users/{id}")
-    User findUSerById(@PathVariable(name = "id") Long id);
+    User findUserById(@PathVariable(name = "id") Long id);
 
     @GetMapping("data/count_user")
     int count_user(

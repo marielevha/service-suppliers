@@ -82,7 +82,7 @@ export default {
           ascending: true,
           start: "",
           end: "",
-          query: "query"
+          query: ""
         },
         {
           headers: this.$store.state.headers

@@ -49,6 +49,7 @@ public class OfferService {
     public Offer accept(Long id) throws NotFound {
         Offer offer = offerRepository.findById(id).orElseThrow(NotFound::new);
         //offer.setState(State.ACCEPTED);
+        offer.setUpdatedAt(new Date());
         offer.setActivatedAt(new Date());
         return offerRepository.save(offer);
     }

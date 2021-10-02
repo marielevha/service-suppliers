@@ -22,7 +22,7 @@ public class Constants {
     public static final String[] AUTH_WHITELIST = {
             "/login",
             "/register",
-            //"/users/**",
+            "/barcodes/**",
             PATH_REFRESH_TOKEN
     };
 

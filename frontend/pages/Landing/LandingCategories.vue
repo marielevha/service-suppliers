@@ -24,7 +24,7 @@
               <h3 class="cats_urip_title">
                 <a href="#">{{ category.title }}</a>
               </h3>
-              <span>100k Jobs Found</span>
+              <span>{{ category.totalJobs }} Jobs Found</span>
             </div>
           </div>
         </div>

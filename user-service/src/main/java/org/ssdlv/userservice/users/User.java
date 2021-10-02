@@ -55,8 +55,7 @@ public class User {
     private Date updatedAt;
     private Date deletedAt;
     @OneToMany(mappedBy = "user")
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<UserPermission> permissions;
 
     public User(String first_name, String last_name, String phone, String email, String password, String avatar, String address) {

@@ -81,16 +81,19 @@
                 </ul>
 
                 <ul class="nav-menu nav-menu-social align-to-right">
-
                   <li>
                     <NuxtLink to="/" data-toggle="modal" data-target="#upload-resume">
                       <i class="fa fa-upload mr-1"></i>Upload Resume
                     </NuxtLink>
                   </li>
+
                   <li class="add-listing dark-bg">
-                    <NuxtLink to="/" data-toggle="modal" data-target="#login">
+                    <NuxtLink v-if="access_token == null || access_token === ''" to="/" data-toggle="modal" data-target="#login">
                       <i class="ti-user mr-1"></i> Sign in
                     </NuxtLink>
+                    <a v-else href="javascript:void(0);" data-toggle="modal" data-target="#login">
+                      <i class="ti-user mr-1"></i> Carols DENVER
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -108,9 +111,17 @@
 import AppLogo from "@/components/AppLogo";
 export default {
   name: "TopHeader",
+
   components: {AppLogo},
 
+  data() {
+    return {
+      access_token: localStorage.getItem('access_token'),
+    }
+  },
+
   mounted() {
+    this.access_token = localStorage.getItem('access_token')
   },
 
   methods: {

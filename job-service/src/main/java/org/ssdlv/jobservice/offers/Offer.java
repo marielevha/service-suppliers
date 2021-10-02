@@ -6,11 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.ssdlv.jobservice.jobs.Job;
+import org.ssdlv.jobservice.users.User;
 import org.ssdlv.jobservice.utils.SlugifyUtil;
 import org.ssdlv.jobservice.utils.State;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -33,21 +35,31 @@ public class Offer {
     private State state;*/
     @Column(nullable = false)
     private String slug;
-    private Date createdAt;
-    private Date updatedAt;
+    @Column(nullable = false)
+    private Long userId;
     private Date activatedAt;
-    private Date deletedAt;
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Job job;
+    @Transient
+    private User user;
+    private Date startDate;
+    private Date endDate;
 
-    public Offer(String title, String description, double price, Job job) {
+    private Date createdAt;
+    private Date updatedAt;
+    private Date deletedAt;
+
+    public Offer(String title, String description, double price, Job job, Long userId) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.slug = SlugifyUtil.getInstance().slugify(title);
+        this.job = job;
+        this.userId = userId;
+        this.startDate = new Date();
+        this.endDate = new Date();
         this.createdAt = new Date();
         this.updatedAt = new Date();
-        this.job = job;
     }
 }

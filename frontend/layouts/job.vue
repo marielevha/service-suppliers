@@ -6,6 +6,7 @@
       <PageTitle/>
       <Nuxt />
       <Footer/>
+      <LoginModal/>
     </div>
   </div>
 </template>
@@ -15,11 +16,12 @@ import Footer from "@/components/Footer";
 import PageTitle from "@/components/PageTitle";
 import AppLogo from "@/components/AppLogo";
 import TopHeader2 from "@/components/TopHeader2";
+import LoginModal from "@/components/modals/LoginModal";
 
 export default {
   name: "job",
 
-  components: {TopHeader2, AppLogo, PageTitle, Footer}
+  components: {LoginModal, TopHeader2, AppLogo, PageTitle, Footer}
 }
 </script>
 

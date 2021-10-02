@@ -6,12 +6,12 @@ spring:
     application:
         name: job-service
     datasource:
-#        password: password
-#        url: jdbc:postgresql://localhost:5432/job-service
-#        username: postgres
-        password: 4e9f321da88ce4c83ed83df85f6dc54c7cb55d11c5332e28e60350509efa5bb5
-        url: jdbc:postgresql://ec2-34-193-101-0.compute-1.amazonaws.com:5432/dc22q7ps039rr3
-        username: sgvjyelttsxkcu
+        password: password
+        url: jdbc:postgresql://localhost:5432/job-service
+        username: postgres
+#        password: 4e9f321da88ce4c83ed83df85f6dc54c7cb55d11c5332e28e60350509efa5bb5
+#        url: jdbc:postgresql://ec2-34-193-101-0.compute-1.amazonaws.com:5432/dc22q7ps039rr3
+#        username: sgvjyelttsxkcu
 #        password: password
 #        url: jdbc:mysql://localhost:3306/job-service?serverTimezone=UTC
 #        username: root
@@ -34,22 +34,13 @@ spring:
 eureka:
     client:
         service-url:
-            defaultZone: https://sp-euraka-service.herokuapp.com/eureka/
-feign:
-    client:
-        config:
-            default:
-                connectTimeout: 160000000
-                readTimeout: 160000000
-ribbon:
-    ReadTimeout: 100000
-    ConnectTimeout: 100000
-    MaxAutoRetries: 3
-
-hystrix:
-    command:
-        default:
-            execution:
-                isolation:
-                    thread:
-                        timeoutInMilliseconds: 100000
+            defaultZone: http://192.168.1.122:8761/eureka/
+logging:
+    level:
+        org.springframework.web: error
+        org.ssdlv.jobservice: debug
+    pattern:
+        file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+        console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file:
+        name: /home/ssdlv/Documents/ssdlv/service-suppliers/job-service/src/main/resources/job-service.log

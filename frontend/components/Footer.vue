@@ -6,7 +6,7 @@
 
           <div class="col-lg-4 col-md-6">
             <div class="footer-widget">
-              <img src="assets/img/logo-light.png" class="img-fluid f-logo" width="120" alt="">
+              <img src="/assets/img/logo-light.png" class="img-fluid f-logo" width="120" alt="">
               <p>407-472 Rue Saint-Sulpice, Montreal<br>Quebec, H2Y 2V8</p>
               <ul class="footer-bottom-social">
                 <li><a href="#"><i class="ti-facebook"></i></a></li>

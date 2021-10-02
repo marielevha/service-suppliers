@@ -1,6 +1,5 @@
 package org.ssdlv.userservice.utils.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,9 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.ssdlv.userservice.blacktoken.BlackTokenService;
 import org.ssdlv.userservice.userpermission.UserPermissionRepository;
@@ -61,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers().frameOptions().disable()
                 .and()
-                .addFilter(new JwtAuthentication(authenticationManager()))
+                .addFilter(new JwtAuthentication(authenticationManager(), userRepository))
                 .addFilterAfter(new JwtAuthorization(blackTokenService), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests().antMatchers(Constants.AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated();

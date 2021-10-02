@@ -42,11 +42,11 @@ public class JwtAuthorization extends OncePerRequestFilter {
                 accessToken = authorization.substring(7);
                 Algorithm algorithm = Algorithm.HMAC256(Constants.SECRET_KEY);
 
-                List<String> blackListTokens = blackTokenService.blackListTokens();
+                /*List<String> blackListTokens = blackTokenService.blackListTokens();
                 if (blackListTokens.contains(accessToken)) {
                     response.setHeader("Token-Error-Message", Constants.MESSAGE_INVALID_ACCESS_TOKEN);
                 }
-                else {
+                else {*/
                     JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = jwtVerifier.verify(accessToken);
 
@@ -62,7 +62,7 @@ public class JwtAuthorization extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                             new UsernamePasswordAuthenticationToken(username, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                }
+                //}
                 filterChain.doFilter(request, response);
             }
             catch (Exception e) {

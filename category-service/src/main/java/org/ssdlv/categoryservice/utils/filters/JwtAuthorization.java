@@ -32,6 +32,7 @@ public class JwtAuthorization extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader(Constants.AUTHORIZATION);
         String accessToken, username;
+        System.err.println("AUTHORIZATION => " + authorization);
 
         if (checkContain(request.getRequestURL().toString())) {
             filterChain.doFilter(request, response);
@@ -40,13 +41,14 @@ public class JwtAuthorization extends OncePerRequestFilter {
         else if (authorization != null && authorization.startsWith(Constants.BEARER)) {
             try {
                 accessToken = authorization.substring(7);
+                System.err.println("TOKEN => " + accessToken);
                 Algorithm algorithm = Algorithm.HMAC256(Constants.SECRET_KEY);
 
-                List<String> blackListTokens = blackTokenService.blackListTokens();
+                /*List<String> blackListTokens = blackTokenService.blackListTokens();
                 if (blackListTokens.contains(accessToken)) {
                     response.setHeader("Token-Error-Message", Constants.MESSAGE_INVALID_ACCESS_TOKEN);
                 }
-                else {
+                else {*/
                     JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = jwtVerifier.verify(accessToken);
 
@@ -63,7 +65,7 @@ public class JwtAuthorization extends OncePerRequestFilter {
                             new UsernamePasswordAuthenticationToken(username, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
-                }
+                //}
                 filterChain.doFilter(request, response);
             }
             catch (Exception e) {

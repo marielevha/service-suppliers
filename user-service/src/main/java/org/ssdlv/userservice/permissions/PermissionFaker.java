@@ -18,9 +18,17 @@ public class PermissionFaker {
         permissionRepository.save(new Permission("JOB:DELETE"));
         permissionRepository.save(new Permission("JOB:CREATE"));
 
+        permissionRepository.save(new Permission("OFFER:READ"));
+        permissionRepository.save(new Permission("OFFER:UPDATE"));
+        permissionRepository.save(new Permission("OFFER:DELETE"));
+        permissionRepository.save(new Permission("OFFER:CREATE"));
+
         permissionRepository.save(new Permission("USER:READ"));
         permissionRepository.save(new Permission("USER:UPDATE"));
         permissionRepository.save(new Permission("USER:DELETE"));
         permissionRepository.save(new Permission("USER:CREATE"));
+
+        permissionRepository.save(new Permission("USER-PERMISSION:GRANT"));
+        permissionRepository.save(new Permission("USER-PERMISSION:REVOKE"));
     }
 }

@@ -1,0 +1,131 @@
+2021-09-05 15:58:43 [restartedMain] INFO  o.s.c.CategoryServiceApplication - No active profile set, falling back to default profiles: default
+2021-09-05 15:58:47 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2021-09-05 15:58:47 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.36]
+2021-09-05 15:58:47 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-09-05 15:58:47 [task-1] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-09-05 15:58:47 [task-1] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.17.Final
+2021-09-05 15:58:47 [task-1] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-09-05 15:58:48 [task-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-09-05 15:58:48 [task-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-09-05 15:58:48 [task-1] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-09-05 15:58:49 [task-1] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-09-05 15:58:51 [restartedMain] WARN  c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-09-05 15:58:51 [restartedMain] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-09-05 15:58:51 [restartedMain] WARN  c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-09-05 15:58:51 [restartedMain] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+2021-09-05 15:58:52 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+2021-09-05 15:58:52 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+2021-09-05 15:58:52 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+2021-09-05 15:58:52 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+2021-09-05 15:58:52 [restartedMain] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+2021-09-05 15:58:52 [restartedMain] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1630850332774 with initial instances count: 1
+2021-09-05 15:58:52 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1630850332787, current=UP, previous=STARTING]
+2021-09-05 15:58:52 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990: registering service...
+2021-09-05 15:58:52 [restartedMain] INFO  o.s.c.CategoryServiceApplication - Started CategoryServiceApplication in 10.81 seconds (JVM running for 11.821)
+2021-09-05 15:58:52 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990 - registration status: 204
+2021-09-05 16:03:53 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-09-05 16:13:45 [restartedMain] INFO  o.s.c.CategoryServiceApplication - No active profile set, falling back to default profiles: default
+2021-09-05 16:13:49 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2021-09-05 16:13:49 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.36]
+2021-09-05 16:13:49 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-09-05 16:13:50 [task-1] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-09-05 16:13:50 [task-1] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.17.Final
+2021-09-05 16:13:50 [task-1] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-09-05 16:13:50 [task-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-09-05 16:13:51 [task-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-09-05 16:13:51 [task-1] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-09-05 16:13:52 [task-1] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-09-05 16:13:56 [restartedMain] WARN  c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-09-05 16:13:56 [restartedMain] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-09-05 16:13:56 [restartedMain] WARN  c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-09-05 16:13:56 [restartedMain] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-09-05 16:13:59 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+2021-09-05 16:13:59 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+2021-09-05 16:13:59 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+2021-09-05 16:13:59 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+2021-09-05 16:13:59 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+2021-09-05 16:14:00 [restartedMain] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+2021-09-05 16:14:00 [restartedMain] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1630851240643 with initial instances count: 1
+2021-09-05 16:14:00 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1630851240669, current=UP, previous=STARTING]
+2021-09-05 16:14:00 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990: registering service...
+2021-09-05 16:14:00 [restartedMain] INFO  o.s.c.CategoryServiceApplication - Started CategoryServiceApplication in 19.442 seconds (JVM running for 22.163)
+2021-09-05 16:14:00 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990 - registration status: 204
+2021-09-05 16:14:28 [http-nio-9990-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-09-05 16:14:28 [http-nio-9990-exec-2] DEBUG o.s.c.categories.CategoryController - Category {1} is found !
+2021-09-05 16:15:12 [SpringContextShutdownHook] WARN  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1630851312539, current=DOWN, previous=UP]
+2021-09-05 16:15:12 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990: registering service...
+2021-09-05 16:15:12 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990 - registration status: 204
+2021-09-05 16:15:12 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2021-09-05 16:15:12 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2021-09-05 16:15:12 [SpringContextShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+2021-09-05 16:15:15 [SpringContextShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
+2021-09-05 16:15:15 [SpringContextShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990 - deregister  status: 200
+2021-09-05 16:15:15 [SpringContextShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
+2021-09-05 16:15:27 [restartedMain] INFO  o.s.c.CategoryServiceApplication - No active profile set, falling back to default profiles: default
+2021-09-05 16:15:31 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2021-09-05 16:15:31 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.36]
+2021-09-05 16:15:31 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-09-05 16:15:32 [task-1] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-09-05 16:15:32 [task-1] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.17.Final
+2021-09-05 16:15:33 [task-1] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-09-05 16:15:33 [task-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-09-05 16:15:33 [task-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-09-05 16:15:33 [task-1] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2021-09-05 16:15:35 [task-1] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-09-05 16:15:38 [restartedMain] WARN  c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-09-05 16:15:38 [restartedMain] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-09-05 16:15:38 [restartedMain] WARN  c.n.c.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-09-05 16:15:38 [restartedMain] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-09-05 16:15:39 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+2021-09-05 16:15:39 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+2021-09-05 16:15:39 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+2021-09-05 16:15:40 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+2021-09-05 16:15:40 [restartedMain] INFO  c.n.d.p.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+2021-09-05 16:15:40 [restartedMain] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-09-05 16:15:40 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
+2021-09-05 16:15:40 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+2021-09-05 16:15:40 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+2021-09-05 16:15:40 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
+2021-09-05 16:15:40 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+2021-09-05 16:15:40 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
+2021-09-05 16:15:40 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+2021-09-05 16:15:41 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
+2021-09-05 16:15:41 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+2021-09-05 16:15:41 [restartedMain] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2021-09-05 16:15:41 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1630851341128 with initial instances count: 1
+2021-09-05 16:15:41 [restartedMain] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1630851341170, current=UP, previous=STARTING]
+2021-09-05 16:15:41 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990: registering service...
+2021-09-05 16:15:41 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990 - registration status: 204
+2021-09-05 16:15:41 [restartedMain] INFO  o.s.c.CategoryServiceApplication - Started CategoryServiceApplication in 17.929 seconds (JVM running for 20.547)
+2021-09-05 16:15:52 [http-nio-9990-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-09-05 16:15:52 [http-nio-9990-exec-2] DEBUG o.s.c.categories.CategoryController - Category {1} is found !
+2021-09-05 16:18:41 [SpringContextShutdownHook] WARN  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1630851521818, current=DOWN, previous=UP]
+2021-09-05 16:18:41 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990: registering service...
+2021-09-05 16:18:41 [DiscoveryClient-InstanceInfoReplicator-0] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990 - registration status: 204
+2021-09-05 16:18:41 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2021-09-05 16:18:41 [SpringContextShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2021-09-05 16:18:41 [SpringContextShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+2021-09-05 16:18:44 [SpringContextShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
+2021-09-05 16:18:44 [SpringContextShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_CATEGORY-SERVICE/192.168.1.144:category-service:9990 - deregister  status: 200
+2021-09-05 16:18:44 [SpringContextShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
