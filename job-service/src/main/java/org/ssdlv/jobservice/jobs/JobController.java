@@ -102,6 +102,7 @@ public class JobController {
     public ResponseEntity<Job> create(@Valid @RequestBody CreateJobRequest request) {
         try {
             Job job = jobService.create(request.getJob());
+            job = jobService.publish(job.getId());
             tagService.createMultiple(request.getTags(), job);
             return ResponseEntity.status(HttpStatus.CREATED).body(job);
         }
@@ -222,6 +223,7 @@ public class JobController {
     @GetMapping("/jobs/{id}/offers")
     public ResponseEntity<?> offers_by_job(
         @PathVariable(name = "id") Long id,
+        @RequestParam(name = "user", required = false) Long userId,
         @RequestParam(name = "status", defaultValue = "not-deleted") String status,
         HttpServletRequest request
     ) {
@@ -229,7 +231,7 @@ public class JobController {
         try {
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(jobService.offers(id, status));
+                    .body(jobService.offers(id, userId, status));
         }
         catch (NotFound notFound) {
             logger.debug("Job: {} is not found.", id);
@@ -244,11 +246,6 @@ public class JobController {
             logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        //Job job = jobRepository.findById(id).get();
-
-        //return ResponseEntity
-        //        .status(HttpStatus.OK)
-        //        .body(job.getOffers());
     }
     /*@GetMapping("/jobs/{id}/offers")
     @PreAuthorize("hasAnyAuthority('JOB:CREATE')")

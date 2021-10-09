@@ -8,6 +8,7 @@ import org.ssdlv.jobservice.utils.SlugifyUtil;
 import org.ssdlv.jobservice.utils.State;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,11 +48,21 @@ public class OfferService {
     }
 
     public Offer accept(Long id) throws NotFound {
-        Offer offer = offerRepository.findById(id).orElseThrow(NotFound::new);
+    	Offer activeOffer = offerRepository.findById(id).orElseThrow(NotFound::new);
+    	
+        List<Offer> offers = offerRepository.findAll();
+        offers.forEach(offer -> {
+            if (offer.getId() != id && offer.getJob().getId() == activeOffer.getJob().getId()) {
+                offer.setDeletedAt(new Date());
+                offerRepository.save(offer);
+            }
+        });
+
+        //Offer offer = offerRepository.findById(id).orElseThrow(NotFound::new);
         //offer.setState(State.ACCEPTED);
-        offer.setUpdatedAt(new Date());
-        offer.setActivatedAt(new Date());
-        return offerRepository.save(offer);
+        activeOffer.setUpdatedAt(new Date());
+        activeOffer.setActivatedAt(new Date());
+        return offerRepository.save(activeOffer);
     }
 
     public Offer refused(Long id) throws NotFound {

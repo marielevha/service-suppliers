@@ -391,24 +391,29 @@ public class JobService {
         return map;
     }
 
-    public Collection<Offer> offers(Long id, String status) throws NotFound {
+    public Collection<Offer> offers(Long id, Long userId, String status) throws NotFound {
         Job job = jobRepository.findById(id).orElseThrow(NotFound::new);
 
         Collection<Offer> offers = job.getOffers();
 
+        if (userId != null) {
+            offers = offers
+                    .stream()
+                    .filter(offer -> offer.getUserId().equals(userId))
+                    .collect(Collectors.toList());
+        }
         if (status.equals("activated")) {
             offers = offers
                     .stream()
                     .filter(offer -> (offer.getActivatedAt() != null && offer.getDeletedAt() == null))
                     .collect(Collectors.toList());
         }
-        else if (status.equals("not-deleted")) {
+        if (status.equals("not-deleted")) {
             offers = offers
                     .stream()
                     .filter(offer -> (offer.getDeletedAt() == null))
                     .collect(Collectors.toList());
         }
-
 
         return offers;
     }
