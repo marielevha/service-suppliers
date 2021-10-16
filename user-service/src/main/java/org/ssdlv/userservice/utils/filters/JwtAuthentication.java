@@ -1,5 +1,6 @@
 package org.ssdlv.userservice.utils.filters;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,11 +23,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
+
+    private String decode(String value) throws UnsupportedEncodingException {
+        return URLDecoder.decode(value, StandardCharsets.UTF_8.toString());
+    }
 
     public JwtAuthentication(AuthenticationManager authenticationManager, UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
@@ -37,12 +45,24 @@ public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         BufferedReader reader = request.getReader();
-        Gson gson = new Gson();
-        AuthForm authForm = gson.fromJson(reader, AuthForm.class);
+        String headerContentType = request.getHeader("Content-Type");
 
-        String email = authForm.getEmail();
-        String password = authForm.getPassword();
+        String email;
+        String password;
 
+        if (headerContentType.contains("application/x-www-form-urlencoded")) {
+            String fullText = decode(reader.readLine());
+            String[] text = fullText.split("&");
+            email = text[0].split("=")[1];
+            password = text[1].split("=")[1];
+        }
+        else  {
+            Gson gson = new Gson();
+            AuthForm authForm = gson.fromJson(reader, AuthForm.class);
+
+            email = authForm.getEmail();
+            password = authForm.getPassword();
+        }
         UsernamePasswordAuthenticationToken authenticationToken
                 = new UsernamePasswordAuthenticationToken(email, password);
         return authenticationManager.authenticate(authenticationToken);
@@ -77,6 +97,6 @@ public class JwtAuthentication extends UsernamePasswordAuthenticationFilter {
                 .withClaim("id", localUser.getId())
                 .sign(algorithm);
 
-        UserUtil.sendTokenResponse(response, accessToken, refreshToken, localUser);
+        UserUtil.sendTokenResponse(request, response, accessToken, refreshToken, localUser);
     }
 }

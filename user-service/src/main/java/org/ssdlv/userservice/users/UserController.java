@@ -263,7 +263,7 @@ public class UserController {
                     .withIssuer(request.getRequestURL().toString())
                     .sign(algorithm);
 
-            UserUtil.sendTokenResponse(response, accessToken, refreshToken, null);
+            UserUtil.sendTokenResponse(null, response, accessToken, refreshToken, null);
         }
         else {
             logger.error(Constants.MESSAGE_REFRESH_TOKEN_REQUIRED);
