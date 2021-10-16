@@ -17,9 +17,6 @@ public class UserUtil {
         user.setPermissions(null);
         tokens.put("user", user);
 
-        //System.err.println("ACCESS_TOKEN_KEY : " + accessToken);
-        //System.err.println("REFRESH_TOKEN_KEY : " + refreshToken);
-
         response.setContentType(Constants.CONTENT_TYPE_JSON);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }

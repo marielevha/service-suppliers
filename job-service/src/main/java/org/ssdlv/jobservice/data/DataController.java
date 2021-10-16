@@ -1,5 +1,10 @@
 package org.ssdlv.jobservice.data;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -36,6 +41,10 @@ public class DataController {
         this.jobService = jobService;
     }
 
+    @Operation(summary = "Méthode permettant de mettre à jour un utilisateur")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @GetMapping("/data")
     public ResponseEntity<?> count(HttpServletResponse response) throws IOException {
         try {
@@ -58,6 +67,10 @@ public class DataController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de compter le nombre de job en fonction du status")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @GetMapping("data/count_job")
     public ResponseEntity<?> count_job(@RequestParam(name = "status", defaultValue = "all") String status) {
         try {
@@ -73,6 +86,10 @@ public class DataController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de récupérer le nombre de job par date")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @GetMapping("data/job_daily_published")
     public ResponseEntity<?> job_daily_published(
         @RequestParam(name = "deleted", defaultValue = "false") boolean deleted

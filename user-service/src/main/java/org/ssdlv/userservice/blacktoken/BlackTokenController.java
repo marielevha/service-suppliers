@@ -1,5 +1,6 @@
 package org.ssdlv.userservice.blacktoken;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ public class BlackTokenController {
         this.blackTokenService = blackTokenService;
     }
 
+    @Operation(summary = "Méthode permettant de récupérer la liste noire de tokens")
     @GetMapping("/blackListTokens")
     public ResponseEntity<?> blackListTokens() {
         try {

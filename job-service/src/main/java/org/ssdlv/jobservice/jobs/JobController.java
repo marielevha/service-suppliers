@@ -1,5 +1,10 @@
 package org.ssdlv.jobservice.jobs;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,21 +43,16 @@ public class JobController {
         this.tagService = tagService;
     }
 
+    @Operation(summary = "Méthode permettant de récupérer un job par <<ID>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = { @Content(schema = @Schema(implementation = Job.class)) }),
+    })
     @GetMapping("/jobs/{id}")
     @PreAuthorize("hasAnyAuthority('JOB:READ')")
     public ResponseEntity<?> find(
         @PathVariable(name = "id") Long id,
         HttpServletRequest request
     ) {
-        /*Job job = jobService.findById(id);
-        EntityModel<Job> resource = EntityModel.of(job);
-
-        Link selfLink = ControllerLinkBuilder
-                .linkTo(ControllerLinkBuilder
-                        .methodOn(JobController.class).find(id))
-                .withSelfRel();
-        resource.add(selfLink);
-        return new ResponseEntity<>(resource, HttpStatus.OK);*/
         try {
             Job job = jobService.findById(id);
             return ResponseEntity.status(HttpStatus.OK).body(job);
@@ -72,6 +72,10 @@ public class JobController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de récupérer un job par <<SLUG>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = { @Content(schema = @Schema(implementation = Job.class)) }),
+    })
     @GetMapping("/jobs/{slug}/one")
     @PreAuthorize("hasAnyAuthority('JOB:READ')")
     public ResponseEntity<?> find(
@@ -97,6 +101,10 @@ public class JobController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de créer et publier un job")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = { @Content(schema = @Schema(implementation = Job.class)) }),
+    })
     @PostMapping("/jobs")
     @PreAuthorize("hasAnyAuthority('JOB:CREATE')")
     public ResponseEntity<Job> create(@Valid @RequestBody CreateJobRequest request) {
@@ -108,11 +116,14 @@ public class JobController {
         }
         catch (Exception e) {
             logger.error(e.getMessage());
-            //System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @Operation(summary = "Méthode permettant de mettre à jour un job par <<ID>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = { @Content(schema = @Schema(implementation = Job.class)) }),
+    })
     @PutMapping("/jobs/{id}")
     @PreAuthorize("hasAnyAuthority('JOB:UPDATE')")
     public ResponseEntity<?> update(
@@ -135,11 +146,14 @@ public class JobController {
         }
         catch (Exception e) {
             logger.error(e.getMessage());
-            //System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @Operation(summary = "Méthode permettant de publier un job par <<ID>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = { @Content(schema = @Schema(implementation = Job.class)) }),
+    })
     @PostMapping("/jobs/{id}/publish")
     @PreAuthorize("hasAnyAuthority('JOB:CREATE')")
     public ResponseEntity<?> publish(
@@ -161,11 +175,14 @@ public class JobController {
         }
         catch (Exception e) {
             logger.error(e.getMessage());
-            //System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @Operation(summary = "Méthode permettant de rétirer un job publié par <<ID>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = { @Content(schema = @Schema(implementation = Job.class)) }),
+    })
     @PostMapping("/jobs/{id}/unpublish")
     @PreAuthorize("hasAnyAuthority('JOB:CREATE')")
     public ResponseEntity<?> unPublish(
@@ -191,6 +208,10 @@ public class JobController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de supprimer un job par <<ID>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @DeleteMapping("/jobs/{id}")
     @PreAuthorize("hasAnyAuthority('JOB:DELETE')")
     public ResponseEntity<?> delete(
@@ -220,7 +241,12 @@ public class JobController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de récupérer la liste des offres par job")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @GetMapping("/jobs/{id}/offers")
+    @PreAuthorize("hasAnyAuthority('JOB:READ')")
     public ResponseEntity<?> offers_by_job(
         @PathVariable(name = "id") Long id,
         @RequestParam(name = "user", required = false) Long userId,
@@ -247,6 +273,8 @@ public class JobController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+
     /*@GetMapping("/jobs/{id}/offers")
     @PreAuthorize("hasAnyAuthority('JOB:CREATE')")
     public ResponseEntity<?> jobOffer(
@@ -269,7 +297,6 @@ public class JobController {
         }
     }*/
 
-
     /*@GetMapping("/jobs")
     @PreAuthorize("hasAnyAuthority('JOB:READ')")
     public ResponseEntity<?> test(
@@ -289,7 +316,12 @@ public class JobController {
 
     }*/
 
+    @Operation(summary = "Méthode permettant de récupérer liste de jobs avec pagination avec possiblité de filtrer")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @PostMapping("/jobs_data")
+    @PreAuthorize("hasAnyAuthority('JOB:READ')")
     public ResponseEntity<?> data(@RequestBody JobFilterRequest filter) {
         try {
             Pageable pageable;
@@ -298,15 +330,10 @@ public class JobController {
             } else {
                 pageable = PageRequest.of(filter.getPage(), 10);
             }
-            System.err.println(filter.toString());
             List<Job> jobs = jobService.find_and_filter_data(filter);
-            //jobService.paginate(jobs, pageable);
-            //jobService.data(jobs, filter, pageable);
-
             return ResponseEntity
                     .status(HttpStatus.OK)
-                    .body(jobService.paginate_job(jobs, pageable)/*jobService.data(filter, pageable)*/);
-            //.body(jobService.data(filter, pageable));
+                    .body(jobService.paginate_job(jobs, pageable));
         }
         catch (Exception e) {
             logger.error(e.getMessage());
@@ -316,7 +343,12 @@ public class JobController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de compter les jobs par <<CATEGORY>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @GetMapping("/jobs/{category}/count")
+    @PreAuthorize("hasAnyAuthority('JOB:READ')")
     public ResponseEntity<?> count_jobs_by_category(@PathVariable(name = "category") Long category) {
         try {
             return ResponseEntity

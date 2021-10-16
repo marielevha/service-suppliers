@@ -2,6 +2,8 @@ package org.ssdlv.userservice.utils.filters;
 
 
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +13,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.ssdlv.userservice.blacktoken.BlackTokenService;
-import org.ssdlv.userservice.users.UserRepository;
 import org.ssdlv.userservice.utils.Constants;
 
 import javax.servlet.FilterChain;
@@ -40,12 +41,17 @@ public class JwtAuthorization extends OncePerRequestFilter {
                 try {
                     String accessToken = authorization.substring(7);
 
-                    //List<String> blackListTokens = blackTokenService.blackListTokens();
+                    List<String> blackListTokens = blackTokenService.blackListTokens();
+                    System.err.println(blackListTokens.size());
 
-                    /*if (blackListTokens.contains(accessToken)) {
+                    if (blackListTokens.contains(accessToken)) {
+                        //Map<String, Object> msg = new HashMap<>();
+                        //msg.put("Token-Error-Message", Constants.MESSAGE_INVALID_ACCESS_TOKEN);
                         response.setHeader("Token-Error-Message", Constants.MESSAGE_INVALID_ACCESS_TOKEN);
+                        //response.setStatus(HttpStatus.FORBIDDEN.value());
+                        //new ObjectMapper().writeValue(response.getOutputStream(), msg);
                     }
-                    else {*/
+                    else {
                         Algorithm algorithm = Algorithm.HMAC256(Constants.SECRET_KEY);
 
                         JWTVerifier jwtVerifier = JWT.require(algorithm).build();
@@ -63,13 +69,14 @@ public class JwtAuthorization extends OncePerRequestFilter {
                         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                                 new UsernamePasswordAuthenticationToken(email, null, authorities);
                         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                    //}
+                    }
 
                     filterChain.doFilter(request, response);
                 }
                 catch (Exception e) {
                     response.setHeader("Error", e.getMessage());
                     response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                    filterChain.doFilter(request, response);
                 }
             }
             else {

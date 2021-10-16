@@ -4,6 +4,12 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +58,28 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Méthode permettant de créer un nouvel utilisateur")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Utilisateur crée", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
+    })
+    @PostMapping("/register")
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+        try {
+            String password = passwordEncoder.encode(user.getPassword());
+            user.setPassword(password);
+            user = userService.save(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Operation(summary = "Méthode permettant de mettre à jour un utilisateur")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Modifier OK", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
+    })
     @PatchMapping("/users/{id}")
     @PreAuthorize("hasAnyAuthority('USER:UPDATE')")
     public ResponseEntity<?> updateUser(
@@ -78,6 +106,10 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de supprimer un utilisateur")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Supprimer OK", content = @Content),
+    })
     @DeleteMapping("/users/{id}")
     @PreAuthorize("hasAnyAuthority('USER:DELETE')")
     public ResponseEntity<?> deleteUser(
@@ -107,6 +139,10 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de récupérer un utilisateur")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "OK", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
+    })
     @GetMapping("/users/{id}")
     @PreAuthorize("hasAnyAuthority('USER:READ')")
     public ResponseEntity<?> getUser(
@@ -132,6 +168,10 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de récupérer une liste d'utilisateur avec une pagination")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successfully", content = @Content),
+    })
     @GetMapping("/users")
     @PreAuthorize("hasAnyAuthority('USER:READ')")
     public ResponseEntity<Page<User>> all(
@@ -154,10 +194,14 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de mettre à jour le mot de passe de l'utilisateur")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "OK", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
+    })
     @PostMapping("/users/{id}/updatePassword")
     public ResponseEntity<?> updatePassword(
         @PathVariable(name = "id") Long id,
-        @RequestBody UpdatePasswordRequest passwordRequest,
+        @Valid @RequestBody UpdatePasswordRequest passwordRequest,
         HttpServletRequest request
     ) {
         try {
@@ -185,6 +229,10 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de générer un <<access_token>> à partir d'un <<refresh_token>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Access Token générer", content = @Content)
+    })
     @GetMapping("/refreshToken")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String authorization = request.getHeader(Constants.AUTHORIZATION);
@@ -223,27 +271,16 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        try {
-            String password = passwordEncoder.encode(user.getPassword());
-            user.setPassword(password);
-            user = userService.save(user);
-            return ResponseEntity.status(HttpStatus.CREATED).body(user);
-        }
-        catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
+    @Operation(summary = "Méthode permettant de déconnecter l'utilisateur en mettant son token sur une liste noire")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @PostMapping("/userLogout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
         try {
             String authorization = request.getHeader(Constants.AUTHORIZATION);
 
             String accessToken = authorization.substring(7);
-            System.err.println(accessToken);
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(userService.logout(accessToken));
@@ -254,6 +291,9 @@ public class UserController {
         }
     }
 
+    /**
+     * Méthode permettant de formater les erreurs de validation des données
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

@@ -5,6 +5,12 @@ import org.ssdlv.userservice.users.UserRepository;
 
 public class UserPermissionFaker {
 
+    /**
+     * Méthodes permettant d'affecter des permissions aux utilisateurs lors du lancement du projet
+     * @param userPermissionRepository
+     * @param userRepository
+     * @param permissionRepository
+     */
     public static void userPermissionFaker(UserPermissionRepository userPermissionRepository, UserRepository userRepository, PermissionRepository permissionRepository) {
         userPermissionRepository.save(new UserPermission(userRepository.getOne(1L), permissionRepository.getOne(1L)));
         userPermissionRepository.save(new UserPermission(userRepository.getOne(1L), permissionRepository.getOne(2L)));

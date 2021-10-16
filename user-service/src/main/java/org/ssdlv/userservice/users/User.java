@@ -39,6 +39,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
     //@Min(value = 8)
+    @NotBlank(message = "Password is required")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;

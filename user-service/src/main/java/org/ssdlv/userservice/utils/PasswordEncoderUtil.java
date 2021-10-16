@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class PasswordEncoderUtil {
-
     @Bean("password_encoder")
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();

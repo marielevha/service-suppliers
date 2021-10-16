@@ -1,5 +1,9 @@
 package org.ssdlv.userservice.dashbord;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -20,6 +24,10 @@ public class DashboardController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Méthode permettant de compter le nombre d'utilisateur par profile")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content)
+    })
     @GetMapping("data/count_user")
     public ResponseEntity<?> count_user(
         @RequestParam(name = "profile", defaultValue = "all") String profile,

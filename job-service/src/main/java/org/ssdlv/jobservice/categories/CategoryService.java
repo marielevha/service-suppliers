@@ -11,7 +11,5 @@ public interface CategoryService {
     Category findCategoryById(@PathVariable(name = "id") Long id);
 
     @GetMapping("data/count_category")
-    int count_category(
-            @RequestParam(name = "state") String state
-    );
+    int count_category(@RequestParam(name = "state") String state);
 }

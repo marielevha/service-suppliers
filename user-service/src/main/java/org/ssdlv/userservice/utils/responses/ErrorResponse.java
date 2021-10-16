@@ -14,6 +14,12 @@ public class ErrorResponse {
     private String path;
     private Date timestamp;
 
+    /**
+     * Méthode permettant de formater les messsage de type <<not found>>
+     * @param message
+     * @param path
+     * @return ErrorResponse
+     */
     public static ErrorResponse not_found_error(String message, String path) {
         return new ErrorResponse(
             404,

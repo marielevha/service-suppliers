@@ -2,6 +2,10 @@ package org.ssdlv.userservice.permissions;
 
 public class PermissionFaker {
 
+    /**
+     * Méthodes permettant d'enregistrer des permissions lors du lancement du projet
+     * @param permissionRepository
+     */
     public static void permissionFaker(PermissionRepository permissionRepository) {
         permissionRepository.save(new Permission("CATEGORY:READ"));
         permissionRepository.save(new Permission("CATEGORY:UPDATE"));

@@ -1,5 +1,10 @@
 package org.ssdlv.jobservice.offers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +37,10 @@ public class OfferController {
         this.offerRepository = offerRepository;
     }
 
+    @Operation(summary = "Méthode permettant de récupérer la liste des offres")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @GetMapping("/offers")
     @PreAuthorize("hasAnyAuthority('OFFER:READ')")
     public ResponseEntity<Page<Offer>> all(
@@ -52,6 +61,10 @@ public class OfferController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de récupérer une offre par <<ID>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = Offer.class))),
+    })
     @GetMapping("/offers/{id}")
     @PreAuthorize("hasAnyAuthority('OFFER:READ')")
     public ResponseEntity<?> find(
@@ -77,10 +90,13 @@ public class OfferController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de créer une nouvelle offre")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = Offer.class))),
+    })
     @PostMapping("/offers")
     @PreAuthorize("hasAnyAuthority('OFFER:CREATE')")
     public ResponseEntity<Offer> create(@Valid @RequestBody Offer offer) {
-        System.err.println(offer.toString());
         try {
             offer = offerService.create(offer);
             return ResponseEntity.status(HttpStatus.CREATED).body(offer);
@@ -91,6 +107,10 @@ public class OfferController {
         }
     }
 
+    @Operation(summary = "Méthode permettant de mettre à jour une offre par <<ID>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = Offer.class))),
+    })
     @PutMapping("/offers/{id}")
     @PreAuthorize("hasAnyAuthority('OFFER:UPDATE')")
     public ResponseEntity<?> update(
@@ -113,11 +133,14 @@ public class OfferController {
         }
         catch (Exception e) {
             logger.error(e.getMessage());
-            //System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @Operation(summary = "Méthode permettant de supprimer une offre par <<ID>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content),
+    })
     @DeleteMapping("/offers/{id}")
     @PreAuthorize("hasAnyAuthority('OFFER:DELETE')")
     public ResponseEntity<?> delete(
@@ -147,6 +170,10 @@ public class OfferController {
         }
     }
 
+    @Operation(summary = "Méthode permettant d'accepter une offre par <<ID>>")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = Offer.class))),
+    })
     @PostMapping("/offers/{id}/accept")
     @PreAuthorize("hasAnyAuthority('OFFER:CREATE')")
     public ResponseEntity<?> accept(

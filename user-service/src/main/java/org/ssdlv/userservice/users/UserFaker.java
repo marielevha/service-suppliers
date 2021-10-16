@@ -4,6 +4,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserFaker {
 
+    /**
+     * Méthodes permettant d'enregistrer des utilisateurs lors du de l'exécution
+     * @param passwordEncoder
+     * @param userRepository
+     */
     public static void userFaker(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         String password = passwordEncoder.encode("password");
         userRepository.save(new User("Carols", "DENVER", "000000000", "denver@ssdlv.com", password, null,null));
