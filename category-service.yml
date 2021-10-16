@@ -1,0 +1,31 @@
+server:
+    port: 9990
+spring:
+    application:
+        name: category-service
+    datasource:
+        username: postgres
+        password: password
+        url: jdbc:postgresql://localhost:5432/category-service
+#        password: 13d6128fc553eb4a58ed1ff4589c0c8a9b555155016dda12058133870a5ef41c
+#        url: jdbc:postgresql://ec2-35-168-145-180.compute-1.amazonaws.com:5432/d7a26ntk0uu14u
+#        username: uqrqcifzdqwcqi
+    jpa:
+        hibernate:
+            ddl-auto: create
+        show-sql: true
+    main:
+        allow-bean-definition-overriding: true
+eureka:
+    client:
+        service-url:
+            defaultZone: http://192.168.1.144:8761/eureka/
+logging:
+    level:
+        org.springframework.web: error
+        org.ssdlv.categoryservice: debug
+    pattern:
+        file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+        console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file:
+        name: /home/ssdlv/Documents/ssdlv/service-suppliers/category-service/src/main/resources/category-service.log
