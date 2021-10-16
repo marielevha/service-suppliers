@@ -3,20 +3,20 @@ server:
 #    servlet:
 #        context-path: /api
 spring:
-    application:
-        name: user-service
+#    application:
+#        name: user-service
     main:
         allow-bean-definition-overriding: true
-    jpa:
-        hibernate:
-            ddl-auto: create
-        show-sql: true
+#    jpa:
+#        hibernate:
+#            ddl-auto: create
+#        show-sql: true
 #        properties:
 #            hibernate:
 #                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     datasource:
-        username: postgres
-        password: password
+#        username: postgres
+#        password: password
         url: jdbc:postgresql://localhost:5432/user-service
 #        username: juxmxpkghliggw
 #        password: 4114bf7a422f5c5581f0ea98520242d4f0c4d211213c8f65c729910f88a1e98e
@@ -24,16 +24,16 @@ spring:
 #        username: root
 #        password: password
 #        url: jdbc:mysql://localhost:3306/user-service?serverTimezone=UTC
-eureka:
-    client:
-        service-url:
-            defaultZone: http://192.168.1.144:8761/eureka/
+#eureka:
+#    client:
+#        service-url:
+#            defaultZone: http://192.168.1.144:8761/eureka/
 logging:
-    level:
-        org.springframework.web: error
-        org.ssdlv.userservice: debug
-    pattern:
-        file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-        console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+#    level:
+#        org.springframework.web: error
+#        org.ssdlv.userservice: debug
+#    pattern:
+#        file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+#        console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file:
         name: /home/ssdlv/Documents/ssdlv/service-suppliers/user-service/src/main/resources/user-service.log

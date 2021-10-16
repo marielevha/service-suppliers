@@ -1,46 +1,46 @@
-file:
-    upload-directoy: /home/ssdlv/Documents/ssdlv/service-suppliers/job-service/src/main/resources/box/
-server:
-    port: 9997
-spring:
-    application:
-        name: job-service
-    datasource:
-        password: password
-        url: jdbc:postgresql://localhost:5432/job-service
-        username: postgres
-#        password: 4e9f321da88ce4c83ed83df85f6dc54c7cb55d11c5332e28e60350509efa5bb5
-#        url: jdbc:postgresql://ec2-34-193-101-0.compute-1.amazonaws.com:5432/dc22q7ps039rr3
-#        username: sgvjyelttsxkcu
+#file:
+#    upload-directoy: /home/ssdlv/Documents/ssdlv/service-suppliers/job-service/src/main/resources/box/
+#server:
+#    port: 9997
+#spring:
+#    application:
+#        name: job-service
+#    datasource:
 #        password: password
-#        url: jdbc:mysql://localhost:3306/job-service?serverTimezone=UTC
-#        username: root
-#        driver-class-name: com.mysql.cj.jdbc.Driver
-    jpa:
-        hibernate:
-            ddl-auto: create
-        show-sql: true
-#        properties:
-#            hibernate:
-#                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-    main:
-        allow-bean-definition-overriding: true
-    servlet:
-        multipart:
-            enabled: true
-            file-size-threshold: 2KB
-            max-file-size: 500KB
-            max-request-size: 215MB
-eureka:
-    client:
-        service-url:
-            defaultZone: http://192.168.1.144:8761/eureka/
-logging:
-    level:
-        org.springframework.web: error
-        org.ssdlv.jobservice: debug
-    pattern:
-        file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-        console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-    file:
-        name: /home/ssdlv/Documents/ssdlv/service-suppliers/job-service/src/main/resources/job-service.log
+#        url: jdbc:postgresql://localhost:5432/job-service
+#        username: postgres
+##        password: 4e9f321da88ce4c83ed83df85f6dc54c7cb55d11c5332e28e60350509efa5bb5
+##        url: jdbc:postgresql://ec2-34-193-101-0.compute-1.amazonaws.com:5432/dc22q7ps039rr3
+##        username: sgvjyelttsxkcu
+##        password: password
+##        url: jdbc:mysql://localhost:3306/job-service?serverTimezone=UTC
+##        username: root
+##        driver-class-name: com.mysql.cj.jdbc.Driver
+#    jpa:
+#        hibernate:
+#            ddl-auto: create
+#        show-sql: true
+##        properties:
+##            hibernate:
+##                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#    main:
+#        allow-bean-definition-overriding: true
+#    servlet:
+#        multipart:
+#            enabled: true
+#            file-size-threshold: 2KB
+#            max-file-size: 500KB
+#            max-request-size: 215MB
+#eureka:
+#    client:
+#        service-url:
+#            defaultZone: http://192.168.1.144:8761/eureka/
+#logging:
+#    level:
+#        org.springframework.web: error
+#        org.ssdlv.jobservice: debug
+#    pattern:
+#        file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+#        console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+#    file:
+#        name: /home/ssdlv/Documents/ssdlv/service-suppliers/job-service/src/main/resources/job-service.log

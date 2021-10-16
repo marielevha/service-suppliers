@@ -3,3 +3,21 @@ spring:
     config:
       uri: http://localhost:8888
       label: master
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    username: postgres
+    password: password
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka/
+logging:
+  level:
+    org.springframework.web: error
+    org.ssdlv.userservice: debug
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
