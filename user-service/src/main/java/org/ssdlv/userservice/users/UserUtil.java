@@ -34,16 +34,16 @@ public class UserUtil {
                         "    </style>" +
                         "</head>" +
                         "<body>" +
-                        "<h2>Welcome</h2>" +
+                        "<h1>Welcome</h1>" +
                         "<p>Please find below your access and refresh tokens</p>" +
-                        "<table style=\"table-layout: fixed; width:100%\">" +
+                        "<table style='table-layout: fixed; width:100%'>" +
                         "    <tr>" +
                         "        <th>ACCESS TOKEN</th>" +
                         "        <th>REFRESH TOKEN</th>" +
                         "    </tr>" +
-                        "    <tr style=\"height:200px\">" +
-                        "        <td style=\"word-wrap: break-word\">"+accessToken+"</td>" +
-                        "        <td style=\"word-wrap: break-word\">"+refreshToken+"</td>" +
+                        "    <tr style='height:200px'>" +
+                        "        <td style='word-wrap: break-word'>"+accessToken+"</td>" +
+                        "        <td style='word-wrap: break-word'>"+refreshToken+"</td>" +
                         "    </tr>" +
                         "</table>" +
                         "</body>" +
