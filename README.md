@@ -1,4 +1,5 @@
 #LISTE DES SERVICES (JAVA JEE)
+    Les micro service utilise une base de donnee postgresql
 ####EUREKA-SERVICE
     port: 8167
 ####PROXY-SERVICE
